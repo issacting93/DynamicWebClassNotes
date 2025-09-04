@@ -27,7 +27,7 @@ npx create-react-app hello-react
 This will take a few seconds to spin up our new project. Once this is done, lets change directories into our new project folder:
 
 ```bash
-cd /hello-react
+cd hello-react
 ```
 
 To run our project dev server at any time run
