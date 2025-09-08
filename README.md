@@ -10,7 +10,7 @@
 
 **Fall 2025 – Professor Kathryn Adee**
 
-_Tuesday/Thursday 2:00 PM – 4:50 PM;
+_Tuesday 2:00 PM – 4:50 PM;
 Brooklyn Navy Yard, Bldg 22 Room 303
 Loc: Brooklyn Campus_
 
