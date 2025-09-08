@@ -24,26 +24,6 @@ Wow, this is great! We can avoid long rambling class names and still target the 
 
 This may seem overkill for a small sandbox project like our recipe card, but we can imagine how scoping our CSS can help with larger projects (like the documentation example `.error`). Variables will also help facilitate a design conversation and allow for less tedious sitewide changes. For example: what if we discovered our main color blue that we use across the website is not colorblind safe and we need to overhaul and replace all instances of them? Changing one line of one file sure beats finding and replacing across an entire code ecosystem.
 
-## Hello Typchecking: Flow Eddition
-
-Combining a bunch of data from multiple sources for use sounds magical right? But what if some of it is malformed? What if we arent getting the correct data format back from the back end? What if we started designing around a data format that doesnt match the data shape returned from an API call? Enter typchecking. Its a pain in the @$$ but it will save your @$$ someday in production.
-
-Today we are going to implement Typchecking via Flow in our recipe project. Instructions on installing and implementing flow can be [found here](https://create-react-app.dev/docs/adding-flow/). We will run through this together live.
-
-### Combining our recipe-data(s)
-
-- Collect all of our class recipes (_with matching data formats!_) in a GitHub repo. [Recipe repo can be found here](https://github.com/Kadee80/DynamicWebCookBook).
-  - Clone repo
-  - Create a new branch
-  - Add your recipe to the recipe folder
-  - Create a pull request to combine. We will review and merge a few pull requests together live.
-
-### Putting our RecipeCard to further use
-
-Now that our data format has been updated to make for easier styling, we can combine all of our recipes into a `RecipeList`, but first lets quickly to an example together to update our `App.js` to map through an array of recipes.
-
-- Update code in app to map through RECIPE_MULTI
-- Update Styles accordingly
 
 ## Hello State: Updating our content based on user input and events
 
