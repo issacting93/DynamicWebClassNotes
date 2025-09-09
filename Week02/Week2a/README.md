@@ -2,7 +2,7 @@
 
 Last week we dabbled in creating a simple recipe card with JSX, breaking it down into atomic components, and passing our content in via data and props. Before we move on, let's take a few minutes together to sync up on our recipe cards and styling.
 
-For HW you should have styled your own recipe card, but to keep things easier and to review a few concepts, lets all start with the same files and apply some basic styling together. Starter code can be found here. Please note I have only provided the src directory from our project. Please copy the `src` folder into a new or existing `create-react-app` project now.
+To keep things easier and to review a few concepts, lets all start with the same files and apply some basic styling together. We will generate a new project from scratch again for practice.
 
 ### In Class Exercise 1: Applying vanilla CSS.
 
