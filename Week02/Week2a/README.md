@@ -1,4 +1,4 @@
-# External Libraries: CSS Modules and Flow
+# External Libraries: CSS Modules and Material Design Icons
 
 Last week we dabbled in creating a simple recipe card with JSX, breaking it down into atomic components, and passing our content in via data and props. Before we move on, let's take a few minutes together to sync up on our recipe cards and styling.
 
