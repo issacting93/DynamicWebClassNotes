@@ -10,4 +10,12 @@ Add your name and github repo link [HERE](https://docs.google.com/spreadsheets/d
 
 Use `git add` `git commit` and `git push` to upload these folders and files to Github, just like we did in class today.
 
-**Reminder: Documentation is 5% of your grade at IDM. A clean repo with detailed markdown files and commented code is an easy way to achieve this!**
+### In Class Continued
+
+Current Project:
+- Hide/Show [+] and [-] buttons based on current count. For example if we have 5 stars, hide the [+] button since we cannot add any more
+- Update the styling so that the hearts and button locations do not jump as things hide/show
+- Add a header and wrapper element to the page to make it look more like an app or webpage
+
+Other:
+- Make sure you are up to date with your assignments and understand class notes and exercises up until this point before next week. Next week we will play a little more with State before diving in to Redux!
