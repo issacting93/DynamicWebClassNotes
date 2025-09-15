@@ -1,6 +1,6 @@
 ### Announcement: Thursdays class will be held via Zoom.
 
-Please keep your eyes peeled for an email to schedule Thursdays Zoom class with a link to the meeting. The LIRR is threatening to strike this Thursday, which would lead to a complete shutdown of the LIRR. This will affect both students and teachers ability to commute to class (including your teacher). As a result, we will meet on Zoom at Thursday 9/18.
+Please keep your eyes peeled for an email to schedule Thursdays Zoom class with a link to the meeting. The LIRR is threatening to strike this Thursday, which would lead to a complete shutdown of the LIRR. This will affect both students and teachers ability to commute to class (including your teacher). As a result, we will meet on Zoom on Thursday 9/18 at 8:00am.
 
 ## HW Due Tuesday Week04
 
