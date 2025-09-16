@@ -1,0 +1,87 @@
+/* Recipe Card Component Styles */
+
+/* Main card container */
+.card {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    max-width: 100%;
+    padding: 40px;
+    background-color: #efefef;
+    border-radius: 5px;
+    border: 1px solid #a8a8a8;
+    margin: 24px;
+}
+
+/* Card content layout */
+.content {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+
+/* Recipe image */
+img {
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Recipe information section */
+.recipe-info {
+    display: flex;
+    flex-direction: column;
+    padding: 0 24px;
+    gap: 10px;
+    margin: 0 24px;
+    justify-content: flex-start;
+    flex: 1;
+}
+
+/* Recipe title */
+h3 {
+    font-size: 24px;
+    font-weight: 800;
+    font-family: 'Acme', sans-serif;
+    color: #00a666;
+    margin: 0;
+}
+
+/* Section headers */
+h4 {
+    font-size: 14px;
+    font-weight: 800;
+    color: #000;
+    margin: 0;
+}
+
+/* Lists */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ingredient and instruction sections */
+.instructions, 
+.ingredients {
+    width: 50%;
+}
+
+/* Individual ingredient styling */
+.ingredient {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.ingredient span {
+    font-size: 14px;
+    width: 50%;
+}
