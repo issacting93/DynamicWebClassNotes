@@ -7,7 +7,6 @@ const App = () => {
         <Button
           primary
           danger
-          outline
         >
           Buy Now
         </Button>

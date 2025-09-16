@@ -1,4 +1,5 @@
 import cx from 'classnames'
+import PropTypes from 'prop-types'
 // some of you may need to install and import twMerge so that your white text
 // does not overwrite your outline button text styles
 // to install, make sure you are in your project in terminal and enter:
@@ -20,6 +21,23 @@ const Button = (props) => {
     rounded,
     outline,
   } = props
+
+  // its very sad the PropTypes Library no longer supports the custom validation
+  // we wrote in class, instead, we can put that same validation logic here and
+  // spit our a console.warning message when we accidentaly use 2 variant booleans
+  const count =
+    Number(!!primary) +
+    Number(!!secondary) +
+    Number(!!success) +
+    Number(!!warning) +
+    Number(!!danger)
+
+  if (count > 1) {
+    console.warn(
+      'You silly goose! Only one of primary, secondary, success, warning, danger can be TRUE!'
+    )
+    // if we throw a return in, we will exit this component function before we render anything, essentially skipping the invalid instance of Button used in another file (App)
+  }
 
   const baseClass = 'flex items-center px-8 py-3 border'
   return (
@@ -47,26 +65,17 @@ const Button = (props) => {
     </button>
   )
 }
+
 // validating props by type, this is the most commonb reason for using this library
 // typscript is also used for this more recently and a lot more
-// primary: PropTypes.bool,
 Button.propTypes = {
-  checkVariationBools: ({ primary, secondary, success, warning, danger }) => {
-    const count =
-      Number(!!primary) +
-      Number(!!secondary) +
-      Number(!!success) +
-      Number(!!warning) +
-      Number(!!danger)
-
-    console.log(count)
-
-    if (count > 1) {
-      return new Error(
-        'You silly goose! Only one of primary, secondary, success, warning, danger can be TRUE!'
-      )
-    }
-  },
+  primary: PropTypes.bool,
+  secondary: PropTypes.bool,
+  success: PropTypes.bool,
+  warning: PropTypes.bool,
+  danger: PropTypes.bool,
+  rounded: PropTypes.bool,
+  outline: PropTypes.bool,
 }
 
 export default Button
