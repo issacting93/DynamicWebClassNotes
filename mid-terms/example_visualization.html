@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graduate Employment Survey - Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        .controls {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        .control-group {
+            margin: 10px 0;
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            font-weight: bold;
+        }
+        select, input {
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            border-left: 4px solid #007bff;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Graduate Employment Survey Data Visualization</h1>
+            <p>Interactive analysis of employment rates and salaries across Singapore universities (2013-2023)</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <h3>Filter Data</h3>
+            <div class="control-group">
+                <label for="universityFilter">University:</label>
+                <select id="universityFilter">
+                    <option value="all">All Universities</option>
+                </select>
+                
+                <label for="yearRange">Year Range:</label>
+                <input type="range" id="yearRange" min="2013" max="2023" value="2023" step="1">
+                <span id="yearValue">2023</span>
+            </div>
+        </div>
+
+        <!-- Key Statistics -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value" id="totalGraduates">-</div>
+                <div class="stat-label">Total Records</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="avgEmploymentRate">-</div>
+                <div class="stat-label">Avg Employment Rate (%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="medianSalary">-</div>
+                <div class="stat-label">Median Salary (SGD)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="topUniversity">-</div>
+                <div class="stat-label">Top University</div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="chart-container">
+            <h3>Employment Rate Trends by University</h3>
+            <canvas id="employmentChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Salary Distribution by University</h3>
+            <canvas id="salaryChart" width="400" height="200"></canvas>
+        </div>
+
+        <div class="chart-container">
+            <h3>Top 10 Highest Paying Degrees</h3>
+            <canvas id="topDegreesChart" width="400" height="300"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let rawData = [];
+        let filteredData = [];
+
+        // Load and parse CSV data
+        function loadData() {
+            fetch('data/GraduateEmploymentSurveyNTUNUSSITSMUSUSSSUTD.csv')
+                .then(response => response.text())
+                .then(csv => {
+                    Papa.parse(csv, {
+                        header: true,
+                        complete: function(results) {
+                            rawData = results.data.filter(row => row.year && row.university);
+                            filteredData = [...rawData];
+                            initializeVisualization();
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading data:', error);
+                    // Fallback: create sample data for demonstration
+                    createSampleData();
+                });
+        }
+
+        // Create sample data for demonstration
+        function createSampleData() {
+            const universities = ['Nanyang Technological University', 'National University of Singapore', 'Singapore Management University'];
+            const years = [2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
+            
+            rawData = [];
+            years.forEach(year => {
+                universities.forEach(uni => {
+                    rawData.push({
+                        year: year.toString(),
+                        university: uni,
+                        employment_rate_overall: (85 + Math.random() * 10).toFixed(1),
+                        gross_monthly_median: Math.floor(3000 + Math.random() * 2000)
+                    });
+                });
+            });
+            filteredData = [...rawData];
+            initializeVisualization();
+        }
+
+        function initializeVisualization() {
+            setupControls();
+            updateStatistics();
+            createEmploymentChart();
+            createSalaryChart();
+            createTopDegreesChart();
+        }
+
+        function setupControls() {
+            const universitySelect = document.getElementById('universityFilter');
+            const yearRange = document.getElementById('yearRange');
+            const yearValue = document.getElementById('yearValue');
+
+            // Populate university filter
+            const universities = [...new Set(rawData.map(row => row.university))];
+            universities.forEach(uni => {
+                const option = document.createElement('option');
+                option.value = uni;
+                option.textContent = uni;
+                universitySelect.appendChild(option);
+            });
+
+            // Setup event listeners
+            universitySelect.addEventListener('change', filterData);
+            yearRange.addEventListener('input', function() {
+                yearValue.textContent = this.value;
+                filterData();
+            });
+        }
+
+        function filterData() {
+            const selectedUniversity = document.getElementById('universityFilter').value;
+            const selectedYear = document.getElementById('yearRange').value;
+
+            filteredData = rawData.filter(row => {
+                const universityMatch = selectedUniversity === 'all' || row.university === selectedUniversity;
+                const yearMatch = parseInt(row.year) <= parseInt(selectedYear);
+                return universityMatch && yearMatch;
+            });
+
+            updateStatistics();
+            updateCharts();
+        }
+
+        function updateStatistics() {
+            if (filteredData.length === 0) return;
+
+            // Total records
+            document.getElementById('totalGraduates').textContent = filteredData.length;
+
+            // Average employment rate
+            const avgEmployment = filteredData.reduce((sum, row) => sum + parseFloat(row.employment_rate_overall || 0), 0) / filteredData.length;
+            document.getElementById('avgEmploymentRate').textContent = avgEmployment.toFixed(1);
+
+            // Median salary
+            const salaries = filteredData.map(row => parseInt(row.gross_monthly_median || 0)).filter(s => s > 0);
+            const medianSalary = salaries.length > 0 ? salaries.sort((a, b) => a - b)[Math.floor(salaries.length / 2)] : 0;
+            document.getElementById('medianSalary').textContent = medianSalary.toLocaleString();
+
+            // Top university by employment rate
+            const universityStats = {};
+            filteredData.forEach(row => {
+                if (!universityStats[row.university]) {
+                    universityStats[row.university] = { total: 0, sum: 0 };
+                }
+                universityStats[row.university].total++;
+                universityStats[row.university].sum += parseFloat(row.employment_rate_overall || 0);
+            });
+
+            let topUniversity = 'N/A';
+            let topRate = 0;
+            Object.keys(universityStats).forEach(uni => {
+                const avgRate = universityStats[uni].sum / universityStats[uni].total;
+                if (avgRate > topRate) {
+                    topRate = avgRate;
+                    topUniversity = uni.split(' ')[0]; // Get first word
+                }
+            });
+            document.getElementById('topUniversity').textContent = topUniversity;
+        }
+
+        function createEmploymentChart() {
+            const ctx = document.getElementById('employmentChart').getContext('2d');
+            
+            // Group data by university and year
+            const universityData = {};
+            filteredData.forEach(row => {
+                if (!universityData[row.university]) {
+                    universityData[row.university] = {};
+                }
+                universityData[row.university][row.year] = parseFloat(row.employment_rate_overall || 0);
+            });
+
+            const years = [...new Set(filteredData.map(row => row.year))].sort();
+            const universities = Object.keys(universityData);
+
+            const datasets = universities.map((uni, index) => ({
+                label: uni.split(' ')[0], // Shorten name
+                data: years.map(year => universityData[uni][year] || 0),
+                borderColor: `hsl(${index * 120}, 70%, 50%)`,
+                backgroundColor: `hsla(${index * 120}, 70%, 50%, 0.1)`,
+                tension: 0.1
+            }));
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Employment Rate (%)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Year'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: true,
+                            text: 'Employment Rate Trends Over Time'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createSalaryChart() {
+            const ctx = document.getElementById('salaryChart').getContext('2d');
+            
+            // Group salary data by university
+            const universitySalaries = {};
+            filteredData.forEach(row => {
+                if (!universitySalaries[row.university]) {
+                    universitySalaries[row.university] = [];
+                }
+                const salary = parseInt(row.gross_monthly_median || 0);
+                if (salary > 0) {
+                    universitySalaries[row.university].push(salary);
+                }
+            });
+
+            const universities = Object.keys(universitySalaries);
+            const datasets = [{
+                label: 'Median Salary (SGD)',
+                data: universities.map(uni => {
+                    const salaries = universitySalaries[uni];
+                    return salaries.length > 0 ? salaries.reduce((a, b) => a + b, 0) / salaries.length : 0;
+                }),
+                backgroundColor: universities.map((_, index) => `hsl(${index * 60}, 70%, 60%)`),
+                borderColor: universities.map((_, index) => `hsl(${index * 60}, 70%, 40%)`),
+                borderWidth: 1
+            }];
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: universities.map(uni => uni.split(' ')[0]),
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Median Salary (SGD)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Average Median Salary by University'
+                        }
+                    }
+                }
+            });
+        }
+
+        function createTopDegreesChart() {
+            const ctx = document.getElementById('topDegreesChart').getContext('2d');
+            
+            // Calculate average salary for each degree
+            const degreeSalaries = {};
+            filteredData.forEach(row => {
+                if (!degreeSalaries[row.degree]) {
+                    degreeSalaries[row.degree] = { total: 0, sum: 0 };
+                }
+                const salary = parseInt(row.gross_monthly_median || 0);
+                if (salary > 0) {
+                    degreeSalaries[row.degree].total++;
+                    degreeSalaries[row.degree].sum += salary;
+                }
+            });
+
+            // Get top 10 degrees by average salary
+            const topDegrees = Object.keys(degreeSalaries)
+                .map(degree => ({
+                    degree: degree,
+                    avgSalary: degreeSalaries[degree].sum / degreeSalaries[degree].total
+                }))
+                .sort((a, b) => b.avgSalary - a.avgSalary)
+                .slice(0, 10);
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: topDegrees.map(d => d.degree.length > 30 ? d.degree.substring(0, 30) + '...' : d.degree),
+                    datasets: [{
+                        label: 'Average Median Salary (SGD)',
+                        data: topDegrees.map(d => d.avgSalary),
+                        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    indexAxis: 'y',
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Average Median Salary (SGD)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        title: {
+                            display: true,
+                            text: 'Top 10 Highest Paying Degree Programs'
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            // Destroy existing charts and recreate
+            Chart.helpers.each(Chart.instances, function(instance) {
+                instance.destroy();
+            });
+            createEmploymentChart();
+            createSalaryChart();
+            createTopDegreesChart();
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
