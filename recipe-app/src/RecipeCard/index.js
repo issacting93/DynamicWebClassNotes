@@ -16,21 +16,21 @@ import './styles.css'
 export default function RecipeCard() {
   return (
     <div className='cardContainer'>
-    <Card>
-      <div className="card_content">
     
-      <RecipeInfo title={RECIPE.title} description={RECIPE.description} />
-    
-      <IngredientsList ingredients={RECIPE.ingredients} />
+    <Card> 
+      <div className="card_header">
+        <RecipeImg imgSrc={RECIPE.imgSrc} />
+        <RecipeInfo title={RECIPE.title} description={RECIPE.description} />
       </div>
-      <div className="card_text">
-         <div className="card_lists">
-         <RecipeImg imgSrc={RECIPE.imgSrc} />
-          <InstructionsList instructions={RECIPE.instructions} />
-        </div>
+      <div className="card_content">
+      <IngredientsList ingredients={RECIPE.ingredients} /> 
+      <InstructionsList instructions={RECIPE.instructions} />
+      </div>
+      <div className="card_footer">
+      <UserRating />
+      <button className="primary_btn">Confirm Rating</button>
       </div>
     </Card>
-      <UserRating />
     </div>
   )
 }

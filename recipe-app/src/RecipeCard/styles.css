@@ -1,3 +1,14 @@
+h2.recipe_title {
+  margin: 0px;
+  font-size: 80px;
+  font-family: var(--primary-font);
+  text-transform: uppercase;
+}
+/* ========================================
+   RECIPE CARD STYLES
+   ======================================== */
+
+/* Main Container */
 .cardContainer {
   display: flex;
   flex-direction: column;
@@ -6,29 +17,48 @@
   max-width: 900px;
   min-height: 90vh;
   margin: auto;
+  font-family: var(--primary-font);
 }
 
+/* Card Layout */
 .card {
-  border-radius: 20px;
-  background: #ffffff;
-  box-shadow: -1px 4px 4px 0px rgb(224 236 255 / 50%);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: flex-start;
-  padding: 1rem;
   max-width: 900px;
   margin: auto;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: -1px 4px 4px 0px rgb(224 236 255 / 50%);
 }
 
+/* Image */
 .img {
   width: 25%;
-  border-radius: 20px;
   height: auto;
+  aspect-ratio: 1/1;
+  border-radius: 20px;
 }
 
+/* Card Content */
 .card_text {
   display: flex;
   flex-direction: column;
+}
+
+.card_content {
+  width: 100%;
+  display: flex;
+  gap: 40px;
+  margin: 24px;
+}
+
+.card_header {
+  display: flex;
+  flex-direction: row;
+  padding: 24px; 
+  border-bottom:1px solid #f0f0f0;
 }
 
 .card_lists {
@@ -42,6 +72,7 @@
   margin-left: 1.5rem;
 }
 
+/* Typography */
 .recipe_title,
 .list_title {
   font-family: var(--primary-font);
@@ -50,7 +81,6 @@
 
 .recipe_title { 
   font-size: 2.5rem;
-  border-bottom: 0.25rem solid var(--c-blue);
 }
 
 .list_title {
@@ -59,8 +89,9 @@
   color: var(--c-blue);
 }
 
+/* Ingredients List */
 .ingredients_list {
-  width: 40%;
+  width: 100%;
 }
 
 .ingredients_list ul {
@@ -68,38 +99,144 @@
   padding-left: 0;
 }
 
-.user-rating {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 24px;
-  padding: 8px;
-  border: 1px solid #f7f7f7;
-  border-radius: 84px;
-  width: fit-content;
-  background-color: #f5f5f5;
-}
-
 .list_item {
   display: flex;
   margin-bottom: 0.75rem;
   padding: 8px;
   border-bottom: 1px solid rgb(200 221 255 / 50%);
-
-  & span {
-    display: block;
-  }
-
-  & .measure {
-    width: 25%;
-    margin-right: 2rem;
-  }
 }
 
-.instructions_list {
-  width: 50%;
+.list_item span {
+  display: block;
+}
 
-  & ol {
-    padding-left: 1.25rem;
-  }
+.list_item .measure {
+  width: 25%;
+  margin-right: 2rem;
+}
+
+/* Instructions List */
+.instructions_list {
+  width: 100%;
+}
+
+.instructions_list ol {
+  padding-left: 1.25rem;
+}
+
+/* User Rating */
+.user-rating {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px;
+  padding: 12px 16px;
+  width: fit-content;
+  background-color: #f8f9fa;
+  border: 2px solid #e9ecef;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+.primary_btn {
+  padding: 12px 24px;
+  border-radius: 24px;
+  border: 0px;
+}
+
+.primary_btn:hover {
+  background: #0056b3;
+  color: white;
+}
+
+.rating_btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 14px;
+}
+
+.rating_btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.minus_btn {
+  background: #dc3545;
+}
+
+.minus_btn:hover {
+  background: #c82333;
+}
+
+.plus_btn {
+  background: #28a745;
+}
+
+.plus_btn:hover {
+  background: #218838;
+}
+
+.rating_display {
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  justify-content: center;
+  gap: 2px;
+}
+
+.heart_icon {
+  color: #ff6b6b;
+  animation: pulse 0.6s ease-in-out;
+}
+
+.rating_placeholder {
+  color: #6c757d;
+  font-size: 14px;
+  font-style: italic;
+  margin-left: 8px;
+}
+
+/* Card Footer */
+.card_footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center; 
+  justify-content: space-between;
+}
+
+.confirm_btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+}
+
+.confirm_btn.active {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.confirm_btn.active:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+}
+
+/* Animations */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
 }
