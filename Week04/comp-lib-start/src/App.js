@@ -1,8 +1,12 @@
-// import ButtonPage from './pages/ButtonPage'
-import AccordionPage from './pages/AccordionPage'
+import React from 'react'
+import ButtonPage from './pages/ButtonPage'
 
 const App = () => {
-  return <AccordionPage />
+  return (
+    <div>
+      <ButtonPage />
+    </div>
+  )
 }
 
 export default App
