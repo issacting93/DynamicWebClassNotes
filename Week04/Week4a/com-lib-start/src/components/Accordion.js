@@ -21,7 +21,8 @@ const DUMMYDATA = {
 
 const Accordion = (props) => {
   // pull out our props with destructuring
-  // const {items} = props
+  const {items} = props
+  console.log(items)
   // state
   const [isExpanded, setIsExpanded] = useState(true)
 
@@ -32,40 +33,14 @@ const Accordion = (props) => {
     // isExpanded = !isExpanded
   }
 
-  // YAY your first ternary (shorthand if/else)
-  /*
-    1 ? 2 : 3
-
-   1- condition we are checking (like a boolean)
-   2- what to return if 1 is true
-   3- what to return if 1 is false
-  */
-  const icon = (
+  icon = (
     <span className="text-2xl">
       {isExpanded ? <GoChevronDown /> : <GoChevronLeft />}
     </span>
   )
 
   // JSX returned and rendered to the user
-  return (
-    <div key={DUMMYDATA.id}>
-      <div
-        onClick={handleClick}
-        className="flex justify-between items-center p-3 bg-gray-100 border-b cursor-pointer"
-      >
-        {DUMMYDATA.label}
-        {icon}
-      </div>
-      {
-        /* conditional rendering
-          The content div will only render when isExpanded is true
-          if isExpanded is false, dont render anything
-        */
-
-        isExpanded && <div className="border-b p-5">{DUMMYDATA.content}</div>
-      }
-    </div>
-  )
+  return <div>Coming Soon</div>
 }
 
 export default Accordion
