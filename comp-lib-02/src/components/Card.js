@@ -1,9 +1,7 @@
 // Card.jsx - Simplified with props instead of Context
 
 import React from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Button from './Button';
-
+import { motion, AnimatePresence } from 'framer-motion'; 
 // Helper function to get readable labels for Material Icons
 const getTagLabel = (iconName) => {
     const labels = {

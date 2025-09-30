@@ -225,6 +225,7 @@
   transition: opacity 0.3s ease-out;
   display: block;
   flex: 1;
+  text-align: center;
 }
 
 .card__title-text--visible {

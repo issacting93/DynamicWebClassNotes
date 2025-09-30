@@ -72,29 +72,21 @@ export default function Carousel() {
     return (
         <div className={carouselClasses}>
             <AnimatePresence mode="popLayout">
-                {/* Show expanded card first on mobile (flex-direction: column-reverse) */}
-                {itemData
-                    .sort((a, b) => {
-                        // Sort expanded card to show first
-                        if (selectedItem === a.id) return -1;
-                        if (selectedItem === b.id) return 1;
-                        return 0;
-                    })
-                    .map(item => (
-                        <Card
-                            key={item.id}
-                            imgUrl={item.img}
-                            itemId={item.id}
-                            itemTitle={item.title}
-                            description={item.description}
-                            tags={item.tags}
-                            isSelected={selectedItem === item.id}
-                            isAnyCardClosing={isAnyCardClosing}
-                            hasSelectedCard={selectedItem !== null}
-                            onCardClick={handleCardClick}
-                            onClose={handleClose}
-                        />
-                    ))}
+                {itemData.map(item => (
+                    <Card
+                        key={item.id}
+                        imgUrl={item.img}
+                        itemId={item.id}
+                        itemTitle={item.title}
+                        description={item.description}
+                        tags={item.tags}
+                        isSelected={selectedItem === item.id}
+                        isAnyCardClosing={isAnyCardClosing}
+                        hasSelectedCard={selectedItem !== null}
+                        onCardClick={handleCardClick}
+                        onClose={handleClose}
+                    />
+                ))}
             </AnimatePresence>
         </div>
     );

@@ -1,51 +1,107 @@
-import React from 'react'
-import Button from '../components/Button'
+// ButtonPage.jsx - Clean and simple implementation
+
+import React from 'react';
+import Button from '../components/Button';
+import Banner from '../components/Banner';
 
 const ButtonPage = () => {
-  return (
-    <div>
-      <h1>Button Page</h1>
-      <div>
-        <Button
-          primary
-          outline
-          onClick={() => {
-            console.log('CLICK')
-          }}
-        >
-          Primary
-        </Button>
-      </div>
+    return (
+        <div className="max-w-7xl mx-auto p-4 sm:p-6 md:p-8">
+            {/* Page Header */}
+            <div className="mb-6 md:mb-8">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
+                    Button Component Demo
+                </h1>
+                <p className="text-base sm:text-lg text-gray-600 mb-4 md:mb-6">
+                    Interactive buttons with multiple variants, states, and shapes.
+                </p>
+            </div>
 
-      <div>
-        <Button
-          secondary
-          rounded
-          className="fixed top-0 right-0"
-        >
-          Secondary
-        </Button>
-      </div>
+            {/* Component Demo Section */}
+            <div className="bg-white rounded-lg p-4 sm:p-6 mb-6 md:mb-8">
+                <h2 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-3 md:mb-4">
+                    Button Variants
+                </h2>
+                <p className="text-sm sm:text-base text-gray-600 mb-6">
+                    Different button styles and combinations available.
+                </p>
 
-      <div>
-        <Button success>Success</Button>
-      </div>
+                {/* Button Examples */}
+                <div className="space-y-6">
+                    {/* Primary Buttons */}
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-3">Primary Buttons</h3>
+                        <div className="flex flex-wrap gap-3">
+                            <Button
+                                primary
+                                onClick={() => console.log('Primary clicked')}
+                            >
+                                Primary
+                            </Button>
+                            <Button
+                                primary
+                                outline
+                                onClick={() => console.log('Primary outline clicked')}
+                            >
+                                Primary Outline
+                            </Button>
+                            <Button
+                                primary
+                                rounded
+                                onClick={() => console.log('Primary rounded clicked')}
+                            >
+                                Primary Rounded
+                            </Button>
+                        </div>
+                    </div>
 
-      <div>
-        <Button warning>Warning</Button>
-      </div>
+                    {/* Secondary Buttons */}
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-3">Secondary Buttons</h3>
+                        <div className="flex flex-wrap gap-3">
+                            <Button secondary>Secondary</Button>
+                            <Button secondary outline>Secondary Outline</Button>
+                            <Button secondary rounded>Secondary Rounded</Button>
+                        </div>
+                    </div>
 
-      <div>
-        <Button
-          danger
-          outline
-          rounded
-        >
-          Danger
-        </Button>
-      </div>
-    </div>
-  )
-}
+                    {/* Status Buttons */}
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-3">Status Buttons</h3>
+                        <div className="flex flex-wrap gap-3">
+                            <Button success>Success</Button>
+                            <Button warning>Warning</Button>
+                            <Button danger>Danger</Button>
+                            <Button danger outline rounded>Danger Outline</Button>
+                        </div>
+                    </div>
 
-export default ButtonPage
+                    {/* Disabled State */}
+                    <div>
+                        <h3 className="text-lg font-semibold text-gray-700 mb-3">Disabled State</h3>
+                        <div className="flex flex-wrap gap-3">
+                            <Button primary disabled>Disabled Primary</Button>
+                            <Button secondary disabled>Disabled Secondary</Button>
+                            <Button success disabled>Disabled Success</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Usage Instructions */}
+            <Banner 
+                title="How to Use"
+                variant="blue"
+                instructions={[
+                    "Import Button from '../components/Button'",
+                    "Use variant props: primary, secondary, success, warning, danger",
+                    "Add shape props: rounded, round",
+                    "Use outline prop for outlined style",
+                    "Add disabled prop to disable interaction"
+                ]}
+            />
+        </div>
+    );
+};
+
+export default ButtonPage;
