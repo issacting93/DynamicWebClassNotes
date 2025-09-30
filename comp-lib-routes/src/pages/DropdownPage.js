@@ -39,7 +39,6 @@ const DropdownPage = () => {
   let filteredData = DATA_TO_FILTER
 
   // if the used selected an option from our dropdown, find the value key, if they oth exist
-  // value? is saying, do i have a value? if so, continue...
   if (value?.value) {
     // filter our array by value of selected option
     filteredData = DATA_TO_FILTER.filter(
@@ -53,14 +52,26 @@ const DropdownPage = () => {
 
   return (
     <div>
-      <h1 className={COLOR_MAP[value?.value] || null}>
+      <h1>
         Dropdown page with user selectd value of: {value?.label}
+        <br />
+        <div className="mt-4 mb-4 flex items-center gap-2">
+          <span>Color-indicator:</span>
+          <div className="w-4 h-4 rounded-full" style={{backgroundColor: value?.value}}></div>  
+        </div>
       </h1>
+
       <Dropdown options={OPTIONS} onChange={handleChange} value={value} />
-      <h2 className={COLOR_MAP[value?.value]}>Students from {value?.label}:</h2>
+      <h2 className="mt-4 mb-4 text-lg font-bold" >Students from {value?.label}:</h2>
+
       {filteredData.map((student) => {
-        return <p key={student.id}>{student.name}</p>
+        return (
+          <div key={student.id} className="flex flex-row items-center gap-2">
+            <p>{student.name} </p>    <div className="w-4 h-4 rounded-full" style={{backgroundColor: student.team}}></div> 
+          </div>
+        )
       })}
+
     </div>
   )
 }
