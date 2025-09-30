@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
 
 import {GoChevronDown} from 'react-icons/go'
 import Panel from './Panel'
@@ -7,6 +7,19 @@ const Dropdown = (props) => {
   const {options, onChange, value} = props
   // local state
   const [isOpen, setIsOpen] = useState(false)
+
+  const divEl = useRef()
+  // scroll down to our returned JSX, we are assigning the outer div containing our dropdown
+  // to the variable divEl:
+  // <div className="w-48 relative" ref={divEl}>
+
+  // useEffect depending on what you pass it
+  // will fire once when the component first mounts []
+  // every time the comonent re-renders no second argument
+  // every time a var updates because we tell useEffect to watch it [someValueToWatch]
+
+  // now we need to add an event listener to reference our useRef value
+  // USE EFFECT HOOK
   // use effect takes 2 arguments
   // the first is the function you want to call
   // the second is an array of props, state, any js variables available to this component to watch
@@ -16,6 +29,11 @@ const Dropdown = (props) => {
   // these are js vars aka state, variables, props
   // these are items we a watching. if one of those variables changes, use effect will fire the function from the first argument again
 
+  // useEffect depending on what you pass it
+  // will fire once when the component first mounts []
+  // every time the comonent re-renders no second argument
+  // every time a var updates because we tell useEffect to watch it [someValueToWatch]
+  // OR
   // fire the first time the component mounts
   // this is really great for API calls or adding event listeners the old fashion way
   // const useEffect(() => {}, [])
@@ -28,22 +46,42 @@ const Dropdown = (props) => {
   // if the function in the first agrument returns another function
   // thats gets fired when the component is detroyed
   // this is a cleanup function
-  // const useEffect(() => {
-  //   // define our handler
-  //   // we are calling setIsOpen a better way!
-  //   const handler = (event) => {
-  //     // scroll down for div el and useREf example
-  //     if(!divEl.current.contains(event.target)){
-  //       setIsOpen(false)
-  //     }
-  //   }
-  //   // define our listener
-  //   document.addEventListener('click', handler, true)
-  //   // when we return a function, its a cleanup callback called on destroy
-  //   return () => {
-  //     document.removeEventListener('click', handler)
-  //   }
-  // }, [])
+
+  /*
+  in our case, we want to add an event listener that:
+  listens for a click, and checks the event.target
+  WHY?
+  to close our dropdown when we click off our dropdown menu
+  (we opened the dropdown menu, but we never made a selection, and we then click off the dropdown anywhere else on the page!)
+  */
+  useEffect(() => {
+    // check the element assigned to const divEl (the most parent div in our dropdown)
+    // if what we just clicked is outside of this component
+    // close our dropdown!
+    const handler = (event) => {
+      if (!divEl.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+
+    // add the event listener, this is for clicks OUTSIDE our dropdown component
+    // because of the conditional check above
+    document.addEventListener('click', handler, true)
+    // whenever we assign an event listener the old fashioned way : document.addEventListener
+    // we do it using useEffect(()=>{}, []) -  empty array as second argument!
+    // if we added an event listener without useEffect,
+    // it will add an event listener EVERY time the component re-renders!
+
+    // we have an event listener that affects our component,
+    // return a cleanup function to remove the event listener,
+    // if we dont, this event listener will hang around after
+    // our dropdown is no longer on the page and cause issues :(
+
+    // returned function inside useEffects first argument is fired whenever the component is destroyed
+    return () => {
+      document.removeEventListener('click', handler)
+    }
+  }, [])
 
   const handleClick = () => {
     setIsOpen(!isOpen)
@@ -57,6 +95,9 @@ const Dropdown = (props) => {
   }
 
   const renderedOptions = options.map((opt, index) => {
+    // this is where we assign an element on the page to our divEl var!
+    // WHY? because we this components state (isOpen) to change when we click
+    // OUTSIDE THIS COMPONENT
     return (
       <div
         onClick={() => handleOptionClick(opt)}
