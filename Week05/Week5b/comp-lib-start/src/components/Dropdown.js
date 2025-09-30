@@ -53,29 +53,20 @@ const Dropdown = (props) => {
   WHY?
   to close our dropdown when we click off our dropdown menu
   (we opened the dropdown menu, but we never made a selection, and we then click off the dropdown anywhere else on the page!)
-  IMPORTANT STEP:
-  make sure you watch our divEl ref in our useEffect!!!
-  const useEffect(() => {}, [divEl])
-  IF YOU DONT:
-  the arrow function will only run ONCE ON MOUNT,
-  things will seem to work MOST of the time, but once the component is destroyed, a few too many clicks and you'll get an error screen
   */
   useEffect(() => {
     // check the element assigned to const divEl (the most parent div in our dropdown)
     // if what we just clicked is outside of this component
     // close our dropdown!
     const handler = (event) => {
-      // check that divEl.current exists before AND that it does not contain the event target
-      if (divEl.current && !divEl.current.contains(event.target)) {
+      if (!divEl.current.contains(event.target)) {
         setIsOpen(false)
-        console.log('clicked outside dropdown')
       }
     }
 
     // add the event listener, this is for clicks OUTSIDE our dropdown component
     // because of the conditional check above
     document.addEventListener('click', handler, true)
-
     // whenever we assign an event listener the old fashioned way : document.addEventListener
     // we do it using useEffect(()=>{}, []) -  empty array as second argument!
     // if we added an event listener without useEffect,
@@ -90,7 +81,7 @@ const Dropdown = (props) => {
     return () => {
       document.removeEventListener('click', handler)
     }
-  }, [divEl])
+  }, [])
 
   const handleClick = () => {
     setIsOpen(!isOpen)
