@@ -1,6 +1,5 @@
 import React from 'react'
 import cx from 'classnames'
-import { twMerge } from 'tailwind-merge'
 // props = {
 //   children: 'whatever elements or text inside the open close tags',
 // primary: true,
@@ -16,6 +15,7 @@ const Button = (props) => {
     warning,
     danger,
     rounded,
+    round,
     outline,
     ...otherProps
   } = props
@@ -23,7 +23,7 @@ const Button = (props) => {
   // const children = props.children
 
   const classes = cx(
-    'flex items-center px-8 py-3 border',
+    'flex items-center justify-center border transition-all duration-200',
     otherProps.className,
     {
       'bg-blue-500 border-blue-500 text-white': primary,
@@ -31,9 +31,12 @@ const Button = (props) => {
       'bg-green-500 border-green-500 text-white': success,
       'bg-orange-400 border-orange-400 text-white': warning,
       'bg-red-600 border-red-600 text-white': danger,
-      //rounded
+      // rounded (pill shape)
       'rounded-full': rounded,
-      //outline
+      // round (circle shape)
+      'rounded-full w-12 h-12 p-0': round,
+      'px-8 py-3': !round,
+      // outline
       'bg-white': outline,
       // outline variation in text color
       'text-blue-500': outline && primary,
