@@ -3,6 +3,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion'; 
 // Helper function to get readable labels for Material Icons
+
+
 const getTagLabel = (iconName) => {
     const labels = {
         'terrain': 'Mountain',
@@ -134,7 +136,7 @@ const Card = ({
                         {/* Content body */}
                         <div className="card__content-body">
                             <p className="card__content-description">
-                                {description || `This is the expanded content area for item ID: ${itemId}.`}
+                              {description || `This is the expanded content area for item ID: ${itemId}.`}
                             </p>
 
                             {/* Meta information with Material Icons */}

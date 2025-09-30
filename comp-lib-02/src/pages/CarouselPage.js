@@ -30,6 +30,7 @@ const CarouselPage = () => {
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-2 sm:p-4">
                     <Carousel />
                 </div>
+                
             </div>
 
             {/* Usage Instructions */}

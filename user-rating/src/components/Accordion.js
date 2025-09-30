@@ -19,7 +19,7 @@ const Accordion = ({ items }) => {
     return (
       <div key={item.id} className="border-b border-gray-200">
         <div 
-          className="flex justify-between p-4 bg-gray-50 cursor-pointer hover:bg-gray-100"
+          className="flex justify-between p-4 bg-gray-100 cursor-pointer hover:bg-gray-100"
           onClick={() => handleClick(index)}
         >
           <div className="font-medium">{item.label}</div>
