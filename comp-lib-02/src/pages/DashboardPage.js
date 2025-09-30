@@ -52,7 +52,7 @@ const DashboardPage = () => {
     // Transform components data into accordion items
     const accordionItems = components.map(component => ({
         id: component.id,
-        label: `${component.name} ${component.status === 'ready' ? '✅' : component.status === 'coming-soon' ? '⏳' : '📋'}`,
+        label: `${component.name}`,
         content: (
             <div className="space-y-4">
                 <p className="text-gray-600 leading-relaxed">{component.description}</p>
