@@ -8,8 +8,6 @@ const Dropdown = (props) => {
   // local state
   const [isOpen, setIsOpen] = useState(false)
 
-  // the useRef hook is for storing a variable (could be data, could be an element in our component)
-  // whos value has nothing to do with the component re-rendering when it updates
   const divEl = useRef()
   // scroll down to our returned JSX, we are assigning the outer div containing our dropdown
   // to the variable divEl:
@@ -55,20 +53,29 @@ const Dropdown = (props) => {
   WHY?
   to close our dropdown when we click off our dropdown menu
   (we opened the dropdown menu, but we never made a selection, and we then click off the dropdown anywhere else on the page!)
+  IMPORTANT STEP:
+  make sure you watch our divEl ref in our useEffect!!!
+  const useEffect(() => {}, [divEl])
+  IF YOU DONT:
+  the arrow function will only run ONCE ON MOUNT,
+  things will seem to work MOST of the time, but once the component is destroyed, a few too many clicks and you'll get an error screen
   */
   useEffect(() => {
     // check the element assigned to const divEl (the most parent div in our dropdown)
     // if what we just clicked is outside of this component
     // close our dropdown!
     const handler = (event) => {
-      if (!divEl.current.contains(event.target)) {
+      // check that divEl.current exists before AND that it does not contain the event target
+      if (divEl.current && !divEl.current.contains(event.target)) {
         setIsOpen(false)
+        console.log('clicked outside dropdown')
       }
     }
 
     // add the event listener, this is for clicks OUTSIDE our dropdown component
     // because of the conditional check above
     document.addEventListener('click', handler, true)
+
     // whenever we assign an event listener the old fashioned way : document.addEventListener
     // we do it using useEffect(()=>{}, []) -  empty array as second argument!
     // if we added an event listener without useEffect,
@@ -83,7 +90,7 @@ const Dropdown = (props) => {
     return () => {
       document.removeEventListener('click', handler)
     }
-  }, [])
+  }, [divEl])
 
   const handleClick = () => {
     setIsOpen(!isOpen)
@@ -112,7 +119,8 @@ const Dropdown = (props) => {
   })
 
   return (
-    <div className="w-48 relative">
+    // assign this div element to the divEl ref
+    <div ref={divEl} className="w-48 relative">
       <Panel
         onClick={handleClick}
         className="flex justify-between items-center cursor-pointer"
@@ -126,8 +134,7 @@ const Dropdown = (props) => {
   )
 }
 
-/* LEAVING THIS HERE FOR NOTES, ON MULTIPLE COMPONENTS AND THEIR EXPORTS IN THE SAME FILE
-WE ALREADY COPIED THIS TO ITS OWN FILE
+/* moved to own file!
 const Panel = (props) => {
   const {className, children, ...rest} = props
   const finalClassNames = cx(
