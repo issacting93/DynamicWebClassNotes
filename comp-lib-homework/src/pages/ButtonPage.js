@@ -71,8 +71,7 @@ const ButtonPage = () => {
                         <div className="flex flex-wrap gap-3">
                             <Button success>Success</Button>
                             <Button warning>Warning</Button>
-                            <Button danger>Danger</Button>
-                            <Button danger outline rounded>Danger Outline</Button>
+                            <Button danger>Danger</Button> 
                         </div>
                     </div>
 

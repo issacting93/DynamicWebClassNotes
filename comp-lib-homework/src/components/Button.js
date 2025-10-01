@@ -1,4 +1,4 @@
-// Button.jsx - Clean and simple implementation
+// Button.jsx - Corrected implementation
 
 import React from 'react';
 import cx from 'classnames';
@@ -24,19 +24,18 @@ const Button = ({
         className,
         {
             // Variants
-            'bg-blue-500 border-blue-500 text-white hover:bg-blue-600': primary,
-            'bg-gray-900 border-gray-900 text-white hover:bg-gray-800': secondary,
-            'bg-green-500 border-green-500 text-white hover:bg-green-600': success,
-            'bg-orange-400 border-orange-400 text-white hover:bg-orange-500': warning,
-            'bg-red-600 border-red-600 text-white hover:bg-red-700': danger,
+            'bg-blue-500 border-blue-500 text-white hover:bg-blue-600 px-8 py-3': primary && !outline,
+            'bg-gray-900 border-gray-900 text-white hover:bg-gray-800 px-8 py-3': secondary && !outline,
+            'bg-green-500 border-green-500 text-white hover:bg-green-600 px-8 py-3': success && !outline,
+            'bg-orange-400 border-orange-400 text-white hover:bg-orange-500 px-8 py-3': warning && !outline,
+            'bg-red-600 border-red-600 text-white hover:bg-red-700 px-8 py-3': danger && !outline,
             
             // Shapes
-            'rounded-full': rounded,
-            'rounded-full w-12 h-12 p-0': round,
-            'px-8 py-3 rounded-md': !round,
+            'rounded-full': rounded,  
+            'px-8 py-3 rounded-md': !round && !rounded,
             
             // Outline variants
-            'bg-white border-2': outline,
+            'bg-white border-2 ': outline,
             'text-blue-500 border-blue-500 hover:bg-blue-50': outline && primary,
             'text-gray-900 border-gray-900 hover:bg-gray-50': outline && secondary,
             'text-green-500 border-green-500 hover:bg-green-50': outline && success,

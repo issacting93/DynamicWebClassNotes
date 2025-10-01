@@ -108,17 +108,7 @@ const DashboardPage = () => {
                 <Accordion items={accordionItems} />
             </div>
 
-            {/* Footer Info */}
-            <div className="mt-12 pt-8 border-t border-gray-200">
-                <div className="text-center text-gray-500">
-                    <p className="text-sm">
-                        Built with React, Tailwind CSS, and Framer Motion
-                    </p>
-                    <p className="text-xs mt-1">
-                        Inspired by Material Design principles
-                    </p>
-                </div>
-            </div>
+           
         </div>
     );
 };
