@@ -40,7 +40,8 @@ First, let's take a look at the Unsplash API. In your browser navigate to: `http
 Now that we have a developer account with Unsplash, lets create a new project. Once create an account you will be redirected to your apps page. You can also access it at [anytime here](https://unsplash.com/oauth/applications). Go ahead and and create a new application. Name it `React Image Search` and give it a useful description like `A simple React project that searches for and displays images by search term`. Make sure you do not just type nonsense here! From time to time these apps are monitored and cleared out if they do not look legitimate. Once you have created a new app inside your developer dashboard, scroll down and you can view your API Keys. We will be using this in a few steps, but for now keep this window open for easy access.
 
 Notes on you API Keys:
-1- Never share your API key! This also means do not publish your API key in a project on GitHub! For example: I will by using `YOUR_API_KEY_HERE_DO_NOT_PUBLISH` as a placeholder in class notes. I suggest you do the same.
+1- Never share your API key! This also means do not publish your API key in a project on GitHub! For example: I will by using `YOUR_API_KEY_HERE_DO_NOT_PUBLISH` as a placeholder in class notes. I suggest you do the same. `create-react-app` makes it super simple to use a `.env` file to store your secret keys. [Read the docs here to learn how!](https://create-react-app.dev/docs/adding-custom-environment-variables/)
+
 2- This is a free API we are using, so we are limited to 50 hits per hour. Keep that in mind while we build our project. You may accidentally hit your limit and be restricted for the rest of the hour! An easy way to make sure we do not hit our limit is never calling an API request on a component re-render and making use of the networks tab in Google Developer Tools.
 
 Next, lets take a look at [the docs](https://unsplash.com/documentation) in a new tab. There are 3 sections we should take note of:
@@ -86,7 +87,7 @@ const searchImages = () => {
     headers: {
       Authorization: 'Client-ID YOUR_API_KEY_HERE_DO_NOT_PUBLISH',
     },
-    params: {query: 'butterflies'},
+    params: { query: 'butterflies' },
   })
   console.log(response.data.results)
   return response.data.results
@@ -103,7 +104,7 @@ const searchImages = async () => {
     headers: {
       Authorization: 'Client-ID YOUR_API_KEY_HERE_DO_NOT_PUBLISH',
     },
-    params: {query: 'butterflies'},
+    params: { query: 'butterflies' },
   })
   console.log(response)
   // all we care about is the data.results array within our response, so let's only return that!
@@ -165,7 +166,7 @@ Why must we follow this pattern? What is it doing?
 7- Now our input is bound to our piece of state using React’s state system! This is seems tedious but will allow greater functionality like validation and error handling in the future. Libraries like `Formik` do all of this behind the scenes for us.
 
 ```jsx
-import {useState} from 'react'
+import { useState } from 'react'
 import SearchBar from './components/SearchBar'
 import ImageList from './components/ImageList'
 import searchImages from './api'
@@ -183,10 +184,10 @@ export default function App() {
 ```
 
 ```jsx
-import {useState} from 'react'
+import { useState } from 'react'
 
 export default function SearchBar(props) {
-  const {onSubmit} = props
+  const { onSubmit } = props
   const [term, setTerm] = useState('')
   const handleFormSubmit = (event) => {
     // disable form input collection (built in to html)
@@ -200,7 +201,10 @@ export default function SearchBar(props) {
   return (
     <div>
       <form onSubmit={handleFormSubmit}>
-        <input onChange={handleChange} value={term} />
+        <input
+          onChange={handleChange}
+          value={term}
+        />
       </form>
     </div>
   )
@@ -210,7 +214,7 @@ export default function SearchBar(props) {
 Now that our `SearchBar` is passing a term back up to its parent component `App`, we can store these images in state so that App and its children components will rerender whenever our `images` results update in State. This will also make `images` available to be passed down as a prop into our `ImageList` component
 
 ```jsx
-import {useState} from 'react'
+import { useState } from 'react'
 import SearchBar from './components/SearchBar'
 import ImageList from './components/ImageList'
 import searchImages from './api'
