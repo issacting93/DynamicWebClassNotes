@@ -3,13 +3,13 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-
 const Card = ({
     imgUrl = "",
     itemId = "",
     itemTitle = "",
     description = "",
     isSelected = false,
+    icon = "",
     onCardClick,
     onClose
 }) => {
@@ -46,7 +46,9 @@ const Card = ({
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
                     >
-                        <span className="material-icons card__title-icon">landscape</span>
+                        <span className="material-icons card__title-icon">
+                            {icon || "landscape"}
+                        </span>
                         <span className="card__title-text">{itemTitle}</span>
                     </motion.div>
                 )}
@@ -74,7 +76,6 @@ const Card = ({
                             <p className="card__content-description">
                               {description || `This is the expanded content area for item ID: ${itemId}.`}
                             </p>
-
                         </div>
 
                         {/* Content footer with close button */}

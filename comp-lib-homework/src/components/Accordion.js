@@ -21,6 +21,8 @@ const Accordion = ({
         });
     };
 
+
+    
     const renderedItems = items.map((item, index) => {
         const isExpanded = index === expandedIndex;
 

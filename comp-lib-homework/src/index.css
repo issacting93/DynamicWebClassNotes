@@ -3,6 +3,29 @@
 @tailwind utilities;
 
 /* ==========================================================================
+   CUSTOM UTILITY CLASSES
+   ========================================================================== */
+
+.background {
+  background-color: #F9F7F3;
+}
+
+
+
+/* Black Ops One: CSS class */
+
+.black-ops-one-regular {
+  font-family: "Black Ops One", system-ui;
+  font-weight: 400;
+  font-size: 6rem;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: 1rem;
+}
+    
+
+
+/* ==========================================================================
    CAROUSEL COMPONENT STYLES
    ========================================================================== */
 
@@ -42,8 +65,7 @@
 }
 
 /* Add backdrop blur when card is expanded */
-.carousel-container.state-1 {
-  background: rgba(0, 0, 0, 0.3);
+.carousel-container.state-1 { 
   backdrop-filter: blur(8px);
 }
 

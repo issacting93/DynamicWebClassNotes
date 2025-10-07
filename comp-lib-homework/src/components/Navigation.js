@@ -20,7 +20,7 @@ const Navigation = () => {
                         className="flex items-center space-x-2 text-xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
                     >
                         <span className="material-icons text-2xl">widgets</span>
-                        <span>Component Library</span>
+                        <span> Dynamic Web</span>
                     </Link>
 
                     {/* Navigation Links */}
@@ -33,7 +33,7 @@ const Navigation = () => {
                                     : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
                             }`}
                         >
-                            Components
+                            Mid Term
                         </Link>
                         <Link
                             to="/components/button"
@@ -84,6 +84,16 @@ const Navigation = () => {
                             }`}
                         >
                             Dropdown
+                        </Link>
+                        <Link
+                            to="/components/hero"
+                            className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                                isActive('/components/hero') 
+                                    ? 'text-blue-600 bg-blue-50' 
+                                    : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50'
+                            }`}
+                        >
+                            Hero
                         </Link>
                     </div>
 
