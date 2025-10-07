@@ -1,6 +1,6 @@
 # HW Due Tuesday Week06:
 
-Today's class will cover React Router and navigating between pages. We will also build a NavBar component that hooks into to React Router using Links.
+Tuesday's class will cover React Router and navigating between pages. We will also build a NavBar component that hooks into to React Router using Links.
 
 By now you should have made your own reusable UI component and styled it using TailwindCSS. Make sure you have a Page for it. This has been loosely assigned for the past 2 weeks. If you have not completed your own Component and Page, make sure you finish that assignment first before moving on.
 
