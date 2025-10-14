@@ -1,17 +1,20 @@
+# DynamicWebClassNotes
+Working Class Notes for Dynamic Web Spring 2025
+
 # Syllabus
 
 ## Tandon School of Engineering of New York University
 
 ### Technology, Culture and Society
 
-### Integrated Digital Media
+### Special Topics in Digital Media
 
-**DM-UY 3193 A Dynamic Web Applications**
+**DM-GY 9103 A Dynamic Web Applications**
 
 **Fall 2025 – Professor Kathryn Adee**
 
-_Tuesday/Thursday 8:00 AM – 9:50 AM;
-370 Jay St Room 310
+_Tuesday 2:00 PM – 4:50 PM;
+Brooklyn Navy Yard, Bldg 22 Room 303
 Loc: Brooklyn Campus_
 
 ---
@@ -125,3 +128,8 @@ If you are student with a disability who is requesting accommodations, please co
 
 ## Notable Dates
 TBA
+
+
+
+## homework 
+- 
